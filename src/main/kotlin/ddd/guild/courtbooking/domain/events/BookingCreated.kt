@@ -1,5 +1,7 @@
 package ddd.guild.courtbooking.domain.events
 
+import ddd.guild.courtbooking.domain.aggregate.Court
 import ddd.guild.courtbooking.domain.aggregate.DateTimeRange
+import ddd.guild.courtbooking.domain.aggregate.MemberId
 
-data class BookingCreated (val memberId: Int, val courtId: Int, val dateTime: DateTimeRange)
+data class BookingCreated (val memberId: MemberId, val court: Court, val dateTimeRange: DateTimeRange)

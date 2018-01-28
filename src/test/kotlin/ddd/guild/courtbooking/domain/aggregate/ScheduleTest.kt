@@ -5,6 +5,11 @@ import ddd.guild.courtbooking.domain.events.BookingCreated
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
+import java.awt.print.Book
+import java.time.Duration
+import java.time.LocalDateTime
+
+
 
 @RunWith(MockitoJUnitRunner::class)
 class ScheduleTest {
@@ -12,16 +17,18 @@ class ScheduleTest {
     fun canCreateNewBooking() {
 
         // Arrange
-        val courtID = 1
-        val memberID = 1234
+        val courtID = Court.CourtOne;
+        val memberID = MemberId(21);
         val scheduleID = 124433//Guid.new;
+        val now = LocalDateTime.now()
+        val dateTimeRange = DateTimeRange(now, Duration.ofMinutes(40));
 
-        val createBooking = CreateBooking(courtID, memberID, DateTimeRange())
+        val createBooking = CreateBooking(memberID, courtID, dateTimeRange);
 
         // Act
-        val schedule = Schedule(scheduleID, courtID)
-        val event = schedule.handle(createBooking)
+        val schedule = Schedule(scheduleID);
+        val event : BookingCreated = schedule.handle(createBooking)
         // Assert
-        assert(event).equals(BookingCreated(courtID, memberID, DateTimeRange()))
+        assert(event).equals(BookingCreated(memberID, courtID, dateTimeRange))
     }
 }
